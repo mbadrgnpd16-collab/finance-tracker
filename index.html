@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinAI - AI Tax Accountant & Financial Manager</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-icon">📊</div>
+        <div class="brand-text">
+          <h1>FinAI</h1>
+          <span class="tagline">Expert AI Tax Accountant & Financial Manager</span>
+        </div>
+      </div>
+      
+      <div class="header-status">
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span>Local Server: <strong id="server-url">http://localhost:8000</strong></span>
+        </div>
+        <div class="tax-year-badge">Tax Year 2026</div>
+      </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="app-nav">
+      <button class="nav-btn active" data-tab="logger-tab">
+        <span class="nav-icon">🧾</span> Log Expense
+      </button>
+      <button class="nav-btn" data-tab="database-tab">
+        <span class="nav-icon">🗂️</span> Expense Database
+      </button>
+      <button class="nav-btn" data-tab="tax-tab">
+        <span class="nav-icon">📄</span> Schedule C Report
+      </button>
+      <button class="nav-btn" data-tab="dashboard-tab">
+        <span class="nav-icon">📈</span> Analytics Dashboard
+      </button>
+    </nav>
+
+    <!-- Main Content Tabs -->
+    <main class="main-content">
+
+      <!-- TAB 1: AI LOGGER -->
+      <section id="logger-tab" class="tab-content active">
+        <div class="grid-2col">
+          <!-- Input Form -->
+          <div class="card input-card">
+            <h2>📥 Process Financial Input</h2>
+            <p class="subtitle">Enter text, transcribed voice notes, or drag-and-drop a receipt image.</p>
+            
+            <!-- Input Selector -->
+            <div class="input-modes">
+              <button class="mode-btn active" id="mode-text">📝 Text / Voice Note</button>
+              <button class="mode-btn" id="mode-receipt">📷 Receipt Image</button>
+            </div>
+
+            <!-- Text / Voice Input Form -->
+            <form id="expense-form">
+              <div class="form-group" id="text-input-group">
+                <label for="expense-text">Describe your expense:</label>
+                <textarea id="expense-text" rows="4" placeholder="e.g. Spent $25 at Starbucks having coffee with a new client to discuss a project..." required></textarea>
+                
+                <div class="preset-pills">
+                  <span class="pill-label">Quick test inputs:</span>
+                  <button type="button" class="pill-btn" data-text="Spent $25 at Starbucks having coffee with a new client to discuss a project.">☕ Client Coffee ($25)</button>
+                  <button type="button" class="pill-btn" data-text="Bought a brand new 32GB RAM laptop for $1,200 to handle client video editing and freelance projects.">💻 Work Laptop ($1,200)</button>
+                  <button type="button" class="pill-btn" data-text="Spent $60 at the grocery store for weekly food supplies.">🛒 Groceries ($60)</button>
+                  <button type="button" class="pill-btn" data-text="Paid $150 for monthly high-speed home fiber internet used 60% for freelance client work.">🌐 Business Internet ($150)</button>
+                </div>
+              </div>
+
+              <!-- Receipt Image Upload Box (hidden by default) -->
+              <div class="form-group hidden" id="receipt-input-group">
+                <label>Upload or Drop Receipt Image:</label>
+                <div class="dropzone" id="dropzone">
+                  <div class="dz-content">
+                    <span class="dz-icon">📷</span>
+                    <p>Drag & drop receipt image here, or <strong>click to browse</strong></p>
+                    <span class="dz-sub">Supports PNG, JPG, WEBP receipt photos</span>
+                  </div>
+                  <input type="file" id="receipt-file" accept="image/*" class="hidden-file-input">
+                </div>
+                <div id="receipt-preview-container" class="receipt-preview-container hidden">
+                  <img id="receipt-preview" src="" alt="Receipt Preview">
+                  <button type="button" id="remove-receipt" class="btn-sm btn-danger">Remove Image</button>
+                </div>
+              </div>
+
+              <!-- Extra fields (optional manual overrides) -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="expense-date">Date:</label>
+                  <input type="date" id="expense-date">
+                </div>
+                <div class="form-group">
+                  <label for="expense-amount">Amount Override ($):</label>
+                  <input type="number" id="expense-amount" step="0.01" placeholder="Auto-detected if left empty">
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="btn-process">
+                  <span class="btn-icon">✨</span> Process & Log Expense
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Output Log Result Card -->
+          <div class="card result-card">
+            <div class="card-header-flex">
+              <h2>📋 FinAI Logged Output</h2>
+              <span class="badge badge-info" id="last-updated-badge">Ready</span>
+            </div>
+
+            <div id="output-container" class="output-container">
+              <div class="empty-state">
+                <div class="empty-icon">🧾</div>
+                <h3>No Expense Logged Yet</h3>
+                <p>Submit an expense description or receipt to see FinAI's structured tax classification and recommendations.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: EXPENSE DATABASE -->
+      <section id="database-tab" class="tab-content">
+        <div class="card">
+          <div class="table-header">
+            <div>
+              <h2>🗂️ Stored Financial Records</h2>
+              <p class="subtitle">Complete audit trail of all logged business & personal expenses.</p>
+            </div>
+            <div class="table-actions">
+              <button class="btn btn-secondary" id="btn-export-csv">📥 Export CSV</button>
+              <button class="btn btn-danger-outline" id="btn-clear-all">🗑️ Clear Records</button>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="filter-bar">
+            <div class="search-box">
+              <span>🔍</span>
+              <input type="text" id="search-input" placeholder="Search merchant, category, or note...">
+            </div>
+            
+            <div class="filter-group">
+              <label>Domain:</label>
+              <select id="filter-domain">
+                <option value="ALL">All Domains</option>
+                <option value="WORK">WORK</option>
+                <option value="PERSONAL">PERSONAL</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Tax Deductible:</label>
+              <select id="filter-deductible">
+                <option value="ALL">All Statuses</option>
+                <option value="YES (100%)">YES (100%)</option>
+                <option value="YES (50%)">YES (50%)</option>
+                <option value="PARTIAL">PARTIAL</option>
+                <option value="NO">NO</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="table-responsive">
+            <table class="expense-table" id="expense-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Merchant / Item</th>
+                  <th>Domain</th>
+                  <th>Category</th>
+                  <th>Amount</th>
+                  <th>Deductible?</th>
+                  <th>Tax Category</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="expense-table-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: SCHEDULE C TAX REPORT -->
+      <section id="tax-tab" class="tab-content">
+        <div class="grid-2col">
+          <div class="card">
+            <h2>📄 IRS Schedule C Summary (Form 1040)</h2>
+            <p class="subtitle">Categorized tax deductions for freelance & sole proprietorship reporting.</p>
+            
+            <div class="schedule-c-lines" id="schedule-c-lines">
+              <!-- Dynamically populated line items -->
+            </div>
+          </div>
+
+          <div class="card tax-summary-card">
+            <h2>💡 Tax Deductibility Breakdown</h2>
+            <div class="tax-metric-box">
+              <span class="metric-title">Total Gross Business Spend</span>
+              <span class="metric-val" id="tax-gross-work">$0.00</span>
+            </div>
+
+            <div class="tax-metric-box highlight-green">
+              <span class="metric-title">Total Tax Deductible Amount</span>
+              <span class="metric-val" id="tax-deductible-total">$0.00</span>
+              <span class="metric-sub">Factoring 100%, 50% meals, & home office partials</span>
+            </div>
+
+            <div class="tax-metric-box highlight-indigo">
+              <span class="metric-title">Estimated Tax Savings (~25% bracket)</span>
+              <span class="metric-val" id="tax-est-savings">$0.00</span>
+              <span class="metric-sub">Direct reduction in federal & self-employment tax liabilities</span>
+            </div>
+
+            <div class="tax-notes">
+              <h4>📌 Key Tax Rules Applied:</h4>
+              <ul>
+                <li><strong>100% Deductible:</strong> Work software, advertising, direct business hardware, client travel.</li>
+                <li><strong>50% Deductible:</strong> Business meals and client dining.</li>
+                <li><strong>Partial:</strong> Mixed utilities & home office phone/internet.</li>
+                <li><strong>Non-Deductible:</strong> Personal groceries & household expenses.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: ANALYTICS DASHBOARD -->
+      <section id="dashboard-tab" class="tab-content">
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon">💰</div>
+            <div class="kpi-info">
+              <span class="kpi-label">Total Expenses Tracked</span>
+              <h3 class="kpi-value" id="kpi-total">$0.00</h3>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-blue">
+            <div class="kpi-icon">💼</div>
+            <div class="kpi-info">
+              <span class="kpi-label">Work Expenses</span>
+              <h3 class="kpi-value" id="kpi-work">$0.00</h3>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-green">
+            <div class="kpi-icon">🛡️</div>
+            <div class="kpi-info">
+              <span class="kpi-label">Deductible Work Expenses</span>
+              <h3 class="kpi-value" id="kpi-deductible">$0.00</h3>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-purple">
+            <div class="kpi-icon">⚡</div>
+            <div class="kpi-info">
+              <span class="kpi-label">Est. Tax Cash Savings</span>
+              <h3 class="kpi-value" id="kpi-savings">$0.00</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="grid-2col chart-grid">
+          <div class="card chart-card">
+            <h3>📊 Work vs. Personal Distribution</h3>
+            <div class="chart-container">
+              <canvas id="domainChart"></canvas>
+            </div>
+          </div>
+
+          <div class="card chart-card">
+            <h3>🏷️ Expense Breakdown by Category</h3>
+            <div class="chart-container">
+              <canvas id="categoryChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>FinAI &bull; Powered by Google DeepMind Antigravity Architecture &bull; All data stays local & private</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "name": "finai-tax-manager",
+  "cleanUrls": true,
+  "routes": [
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}

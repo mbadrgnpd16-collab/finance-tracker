@@ -1,0 +1,58 @@
+[
+  {
+    "id": "exp_1784524460166",
+    "merchant": "Starbucks",
+    "text": "Spent $25 at Starbucks having coffee with a new client to discuss a project.",
+    "amount": 25,
+    "date": "2026-07-20",
+    "domain": "WORK",
+    "category": "Client Meal",
+    "deductible": "YES (50%)",
+    "tax_category": "Schedule C - Meals",
+    "tax_tip": "Business meals with clients or during work travel are 50% tax deductible. Keep notes on attendees and topics.",
+    "hasReceipt": false,
+    "createdAt": "2026-07-20T05:14:20.166Z"
+  },
+  {
+    "id": "exp_1003",
+    "merchant": "Grocery Store",
+    "text": "Spent $60 at the grocery store for weekly food supplies.",
+    "amount": 60.0,
+    "date": "2026-07-20",
+    "domain": "PERSONAL",
+    "category": "Household / Groceries",
+    "deductible": "NO",
+    "tax_category": "None",
+    "tax_tip": "Personal living expenses such as home groceries are non-deductible personal expenditures under standard tax rules.",
+    "hasReceipt": false,
+    "createdAt": "2026-07-20T09:57:20.000Z"
+  },
+  {
+    "id": "exp_1002",
+    "merchant": "Electronics Vendor",
+    "text": "Bought a brand new 32GB RAM laptop for $1,200 to handle client video editing and freelance projects.",
+    "amount": 1200.0,
+    "date": "2026-07-20",
+    "domain": "WORK",
+    "category": "Hardware & Equipment",
+    "deductible": "YES (100%)",
+    "tax_category": "Schedule C - Depreciable Assets / Sec 179",
+    "tax_tip": "Work hardware purchased exclusively for business operations is 100% tax deductible, and under Section 179 you may be able to write off the full $1,200 in the current tax year.",
+    "hasReceipt": false,
+    "createdAt": "2026-07-20T09:56:59.000Z"
+  },
+  {
+    "id": "exp_1001",
+    "merchant": "Starbucks",
+    "text": "Just spent 25 bucks at Starbucks having coffee with a new client to discuss a project.",
+    "amount": 25.0,
+    "date": "2026-07-20",
+    "domain": "WORK",
+    "category": "Client Meal",
+    "deductible": "YES (50%)",
+    "tax_category": "Schedule C - Meals",
+    "tax_tip": "Business meals with prospective clients are 50% tax-deductible; be sure to keep a brief note of the client's name and business topic discussed alongside the receipt for audit purposes.",
+    "hasReceipt": false,
+    "createdAt": "2026-07-20T09:56:32.000Z"
+  }
+]

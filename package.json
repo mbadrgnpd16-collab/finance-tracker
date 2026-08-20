@@ -1,0 +1,9 @@
+{
+  "name": "finai-tax-manager",
+  "version": "1.0.0",
+  "description": "FinAI - AI Tax Accountant & Financial Manager",
+  "main": "index.html",
+  "scripts": {
+    "start": "python server.py"
+  }
+}
