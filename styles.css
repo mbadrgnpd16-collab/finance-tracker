@@ -787,3 +787,60 @@ textarea:focus, input:focus, select:focus {
   font-size: 12px;
   color: var(--text-sub);
 }
+/* =========================================
+   MOBILE RESPONSIVE OVERHAUL (< 768px)
+   ========================================= */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+  }
+
+  .container, main, .dashboard-wrapper {
+    padding: 12px !important;
+    max-width: 100% !important;
+  }
+
+  .kpi-grid,
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .dashboard-grid,
+  .rates-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .card, .panel, .kpi-card {
+    padding: 14px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select,
+  button,
+  .btn {
+    width: 100% !important;
+    min-height: 48px !important;
+    font-size: 15px !important;
+    box-sizing: border-box !important;
+  }
+
+  .table-container,
+  .history-container,
+  table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .tooltip, .info-icon {
+    font-size: 16px !important;
+    padding: 4px 8px !important;
+    display: inline-block;
+  }
+}
