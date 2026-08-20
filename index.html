@@ -10,6 +10,74 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<style>
+  /* Universal Mobile Responsive Overhaul */
+  @media (max-width: 850px) {
+    * {
+      box-sizing: border-box !important;
+    }
+    
+    html, body {
+      width: 100% !important;
+      max-width: 100vw !important;
+      min-width: 0 !important;
+      overflow-x: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    /* Force all layout rows, grids, flex containers to stack vertically */
+    body > *,
+    main,
+    .container,
+    [class*="grid"],
+    [class*="row"],
+    [class*="flex"],
+    [class*="layout"],
+    [class*="wrapper"] {
+      display: flex !important;
+      flex-direction: column !important;
+      grid-template-columns: 1fr !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      padding: 8px !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    /* Force all cards, metric boxes, and panels to full width */
+    [class*="card"],
+    [class*="box"],
+    [class*="panel"],
+    [class*="kpi"],
+    [class*="stat"],
+    [class*="section"] {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      margin-bottom: 12px !important;
+    }
+
+    /* Touch-friendly inputs and buttons */
+    input, select, textarea, button, .btn {
+      width: 100% !important;
+      min-height: 48px !important;
+      font-size: 16px !important;
+      margin-bottom: 8px !important;
+    }
+
+    /* Scrollable tables */
+    table, .table-container, [class*="table"] {
+      display: block !important;
+      width: 100% !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+  }
+</style>
 </head>
 <body>
   <div class="app-container">
