@@ -12,65 +12,83 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <style>
-  /* Universal Mobile Responsive Overhaul */
-  @media (max-width: 850px) {
-    * {
-      box-sizing: border-box !important;
+  /* =========================================
+     CLEAN MOBILE-FIRST NAVIGATION & LAYOUT
+     ========================================= */
+  @media (max-width: 768px) {
+    /* Hide any desktop-only localhost/server badges */
+    .server-status, .localhost-link, #server-badge {
+      display: none !important;
     }
-    
-    html, body {
+
+    /* 1. Fix Tab Bar: 2x2 Clean Grid so ALL 4 tabs are visible and readable */
+    .nav-tabs,
+    .tab-bar,
+    .tabs-container,
+    nav ul,
+    .navigation-tabs {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 8px !important;
+      width: 100% !important;
+      padding: 8px 0 !important;
+      margin-bottom: 16px !important;
+      background: transparent !important;
+    }
+
+    /* Tab Buttons: Large, clear touch buttons */
+    .tab-btn,
+    .nav-link,
+    .tab-button,
+    .nav-tabs button {
+      width: 100% !important;
+      min-height: 44px !important;
+      padding: 10px 6px !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      text-align: center !important;
+      white-space: normal !important;
+      border-radius: 8px !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    /* 2. Main Content & KPI Stacking */
+    .container, main, .dashboard-wrapper {
+      padding: 10px !important;
       width: 100% !important;
       max-width: 100vw !important;
-      min-width: 0 !important;
+      box-sizing: border-box !important;
       overflow-x: hidden !important;
-      margin: 0 !important;
-      padding: 0 !important;
     }
 
-    /* Force all layout rows, grids, flex containers to stack vertically */
-    body > *,
-    main,
-    .container,
-    [class*="grid"],
-    [class*="row"],
-    [class*="flex"],
-    [class*="layout"],
-    [class*="wrapper"] {
+    .kpi-grid, .grid-2, .grid-3, .grid-4, .dashboard-grid {
       display: flex !important;
       flex-direction: column !important;
-      grid-template-columns: 1fr !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      min-width: 0 !important;
-      padding: 8px !important;
-      margin-left: 0 !important;
-      margin-right: 0 !important;
+      gap: 10px !important;
     }
 
-    /* Force all cards, metric boxes, and panels to full width */
-    [class*="card"],
-    [class*="box"],
-    [class*="panel"],
-    [class*="kpi"],
-    [class*="stat"],
-    [class*="section"] {
+    .card, .panel, .kpi-card {
       width: 100% !important;
-      max-width: 100% !important;
-      min-width: 0 !important;
-      margin-bottom: 12px !important;
+      padding: 14px !important;
+      box-sizing: border-box !important;
     }
 
-    /* Touch-friendly inputs and buttons */
+    /* 3. Inputs, Forms & Action Buttons */
     input, select, textarea, button, .btn {
       width: 100% !important;
-      min-height: 48px !important;
-      font-size: 16px !important;
-      margin-bottom: 8px !important;
+      min-height: 46px !important;
+      font-size: 15px !important;
+      box-sizing: border-box !important;
     }
 
-    /* Scrollable tables */
-    table, .table-container, [class*="table"] {
+    /* 4. Table Horizontal Scroll Container */
+    table, .table-container, .history-container {
       display: block !important;
       width: 100% !important;
       overflow-x: auto !important;
@@ -79,7 +97,6 @@
   }
 </style>
 </head>
-  <h1 style="color: red; font-size: 30px; text-align: center;">TESTING SYNC 123</h1>
 <body>
   <div class="app-container">
     <!-- Header -->
@@ -95,7 +112,6 @@
       <div class="header-status">
         <div class="status-badge">
           <span class="status-dot"></span>
-          <span>Local Server: <strong id="server-url">http://localhost:8000</strong></span>
         </div>
         <div class="tax-year-badge">Tax Year 2026</div>
       </div>
